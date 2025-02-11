@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_celery_beat',
     'edu',
 ]
 
@@ -100,6 +101,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+CELERY_BROKER_URL = "amqp://guest:guest@localhost:5672/"
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
 
 
 # Internationalization

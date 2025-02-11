@@ -6,6 +6,7 @@ class Course(AbstractModel):
     description = models.TextField(blank=True, null=True)
     price = models.IntegerField()
 
+
     class Meta:
         verbose_name = "Course"
         verbose_name_plural = "Courses"
