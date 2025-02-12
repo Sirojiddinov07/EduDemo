@@ -85,7 +85,7 @@ docker compose exec web bash
 To check available API endpoints, visit:
 
 ```
-http://localhost:8000/api/docs/
+http://localhost:8001/api/docs/
 ```
 
 
