@@ -1,11 +1,15 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, permissions
+
+from edu.permission import IsManager, IsTeacher
 from edu.serializers import EmployeeSerializer
 from edu.services import EmployeeService
 
 class EmployeeListView(APIView):
     """API View to list all employees."""
+    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser | IsManager | IsTeacher]
+
 
     def get(self, request):
         employees = EmployeeService.get_all_employees()
@@ -15,6 +19,8 @@ class EmployeeListView(APIView):
 
 class EmployeeDetailView(APIView):
     """API View to retrieve an employee by ID."""
+    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser | IsManager | IsTeacher]
+
 
     def get(self, request, id):
         employee = EmployeeService.get_employee_by_id(id)

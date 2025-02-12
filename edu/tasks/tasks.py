@@ -7,7 +7,7 @@ def deduct_student_balance():
     students = Student.objects.prefetch_related("groups").all()
 
     for student in students:
-        courses = {group.course for group in student.groups.all()}  # Get unique courses
+        courses = {group.course for group in student.groups.all()}
         total_price = sum(course.price for course in courses)
 
         student.balance -= total_price

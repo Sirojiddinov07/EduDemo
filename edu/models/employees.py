@@ -1,7 +1,7 @@
+from django.contrib.auth.models import User
 from django.db import models
-from edu.models import AbstractModel
 
-class Employee(AbstractModel):
+class Employee(models.Model):
     ROLE_ADMIN = 1
     ROLE_MANAGER = 2
     ROLE_TEACHER = 3
@@ -14,8 +14,7 @@ class Employee(AbstractModel):
         (ROLE_STAFF, "Staff"),
     )
 
-    full_name = models.CharField(max_length=100)
-    phone = models.CharField(max_length=15, unique=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.IntegerField(choices=ROLE_CHOICES, default=ROLE_STAFF)
 
     class Meta:
@@ -23,5 +22,4 @@ class Employee(AbstractModel):
         verbose_name_plural = "Employees"
 
     def __str__(self):
-        return f"{self.full_name} - {self.role}"
-
+        return f"{self.user.username} - {self.get_role_display()}"

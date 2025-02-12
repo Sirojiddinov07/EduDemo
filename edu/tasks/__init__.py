@@ -1,1 +1,1 @@
-from .tasks import * # noqa
+from edu.tasks import * # noqa

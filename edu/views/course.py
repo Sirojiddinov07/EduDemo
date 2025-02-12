@@ -1,11 +1,16 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+
+from edu.permission import IsTeacher, IsManager
 from edu.serializers import CourseSerializer
 from edu.services import CourseService
+from rest_framework import permissions
 
 class CourseListView(APIView):
     """API View to list all courses."""
+    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser | IsManager | IsTeacher]
+
 
     def get(self, request):
         courses = CourseService.get_all_courses()
@@ -15,6 +20,7 @@ class CourseListView(APIView):
 
 class CourseDetailView(APIView):
     """API View to retrieve a course by ID."""
+    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser | IsManager | IsTeacher]
 
     def get(self, request, id):
         course = CourseService.get_course_by_id(id)
